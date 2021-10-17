@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+from selenium.webdriver.chrome.options import Options
 
 public class SampleTestCase {
 
@@ -25,9 +26,16 @@ public class SampleTestCase {
 	@BeforeClass
 	public static void setUpClass() throws IOException {
 		prop.load(new FileInputStream("target/test-classes/selenium.properties"));
- 		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
- 		final WebDriver driver = new ChromeDriver();	
-	}
+ 		//System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+		options = Options()
+		options.add_argument('--headless')
+		options.add_argument('--no-sandbox')
+		options.add_argument('--disable-gpu')
+		options.add_argument('--window-size=1280,1024')
+		driver = webdriver.Chrome(chrome_options=options)
+		//final WebDriver driver = new ChromeDriver();	
+
+}
 	
 	@AfterClass
 	public static void tearDownClass() throws IOException {
