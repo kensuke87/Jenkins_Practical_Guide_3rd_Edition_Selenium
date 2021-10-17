@@ -25,7 +25,8 @@ public class SampleTestCase {
 	@BeforeClass
 	public static void setUpClass() throws IOException {
 		prop.load(new FileInputStream("target\\test-classes\\selenium.properties"));
-		driver = new FirefoxDriver();
+ 		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+ 		final WebDriver driver = new ChromeDriver();	
 	}
 	
 	@AfterClass
