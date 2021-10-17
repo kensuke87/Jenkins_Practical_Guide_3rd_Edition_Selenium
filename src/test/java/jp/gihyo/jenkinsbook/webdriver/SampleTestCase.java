@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.edge.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -27,10 +28,12 @@ public class SampleTestCase {
 		prop.load(new FileInputStream("target/test-classes/selenium.properties"));
  		//System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 		//final WebDriver driver = new ChromeDriver();	
-	 	ChromeOptions options = new ChromeOptions();
+	 	//ChromeOptions options = new ChromeOptions();
+		EdgeOptions options = new EdgeOptions();
        		options.setHeadless(true);
 		options.addArguments("--no-sandbox");
-       		driver = new ChromeDriver(options);   
+       		//driver = new ChromeDriver(options);   
+		driver = new EdgeDriver(options);   
 }
 	
 	@AfterClass
