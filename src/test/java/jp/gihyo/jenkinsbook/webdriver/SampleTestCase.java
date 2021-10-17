@@ -30,7 +30,8 @@ public class SampleTestCase {
 		//final WebDriver driver = new ChromeDriver();	
 	 	//ChromeOptions options = new ChromeOptions();
 		EdgeOptions options = new EdgeOptions();
-       		options.setHeadless(true);
+       		//options.setHeadless(true);
+		options.addArguments("headless");
 		options.addArguments("--no-sandbox");
        		//driver = new ChromeDriver(options);   
 		driver = new EdgeDriver(options);   
