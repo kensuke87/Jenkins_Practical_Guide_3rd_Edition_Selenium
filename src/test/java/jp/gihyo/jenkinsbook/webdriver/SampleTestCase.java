@@ -29,6 +29,7 @@ public class SampleTestCase {
 		//final WebDriver driver = new ChromeDriver();	
 	 	ChromeOptions options = new ChromeOptions();
        		options.setHeadless(true);
+		options.addArguments("--no-sandbox");
        		driver = new ChromeDriver(options);   
 }
 	
