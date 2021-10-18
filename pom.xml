@@ -3,23 +3,37 @@
   <groupId>jp.gihyo.jenkinsbook</groupId>
   <artifactId>sampleselenium</artifactId>
   <version>1.0.0</version>
-  
+
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>bom</artifactId>
+        <version>2.17.61</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+
   <properties>
     <!-- Project Properties -->
     <java.version>1.8</java.version>
     <maven.test.failure.ignore>true</maven.test.failure.ignore>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    
+
     <!-- Maven Properties -->
     <maven-compiler.version>3.6.1</maven-compiler.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-surefire.version>2.20</maven-surefire.version>
-    
+
     <!-- JUnit Properties -->
     <junit.version>4.12</junit.version>
-    
+
     <!-- Selenium Properties -->
     <selenium-java.version>3.141.59</selenium-java.version>
     <selenium-java.version>3.14.0</selenium-java.version>
@@ -27,7 +41,7 @@
 
     <selenium.baseUrl>http://ec2-18-224-11-12.us-east-2.compute.amazonaws.com:8080/</selenium.baseUrl>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -41,8 +55,16 @@
       <version>${selenium-java.version}</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
-  
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>devicefarm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>regions</artifactId>
+    </dependency>
+    </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -60,7 +82,7 @@
         <version>${maven-surefire.version}</version>
       </plugin>
     </plugins>
-    
+
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
