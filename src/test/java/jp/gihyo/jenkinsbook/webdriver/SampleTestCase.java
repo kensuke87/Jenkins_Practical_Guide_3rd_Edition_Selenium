@@ -33,10 +33,6 @@ public class SampleTestCase {
  		//System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
 		//final WebDriver driver = new ChromeDriver();
 
- 		System.setProperty("aws.accessKeyId", "AKIAUVU7XEZ5B5DUTOOV");
- 		System.setProperty("aws.secretKey", "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");
-
-
 		String myProjectARN = "arn:aws:devicefarm:us-west-2:321383769722:testgrid-project:8520791c-5f97-4345-9349-6acb15414842";
 	    DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
 	    CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
