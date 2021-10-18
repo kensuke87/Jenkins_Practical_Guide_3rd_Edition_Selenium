@@ -4,48 +4,71 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Properties;
-
-import jp.gihyo.jenkinsbook.page.ResultPage;
-import jp.gihyo.jenkinsbook.page.TopPage;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.chrome.*;
-import org.openqa.selenium.edge.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import jp.gihyo.jenkinsbook.page.ResultPage;
+import jp.gihyo.jenkinsbook.page.TopPage;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.devicefarm.*;
+import software.amazon.awssdk.services.devicefarm.model.*;
 
 public class SampleTestCase {
 
 	private static Properties prop = new Properties();
 	private static WebDriver driver;
-	
+
 	@BeforeClass
 	public static void setUpClass() throws IOException {
 		prop.load(new FileInputStream("target/test-classes/selenium.properties"));
  		//System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-		//final WebDriver driver = new ChromeDriver();	
+		//final WebDriver driver = new ChromeDriver();
+
+ 		System.setProperty("aws.accessKeyId", "AKIAUVU7XEZ5B5DUTOOV");
+ 		System.setProperty("aws.secretKey", "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");
+
+
+		String myProjectARN = "arn:aws:devicefarm:us-west-2:321383769722:testgrid-project:8520791c-5f97-4345-9349-6acb15414842";
+	    DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
+	    CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
+	      .expiresInSeconds(300)
+	      .projectArn(myProjectARN)
+	      .build();
+	    CreateTestGridUrlResponse response = client.createTestGridUrl(request);
+	    DesiredCapabilities cap = DesiredCapabilities.edge();
+	    cap.setCapability("ms:edgeChromium", "true");
+	    URL testGridUrl = new URL(response.url());
+	    // You can now pass this URL into RemoteWebDriver.
+	    driver = new RemoteWebDriver(testGridUrl, cap);
+
+
 	 	//ChromeOptions options = new ChromeOptions();
 		EdgeOptions options = new EdgeOptions();
        		//options.setHeadless(true);
-		options.addArguments("headless");
-		options.addArguments("--no-sandbox");
-       		//driver = new ChromeDriver(options);   
-		driver = new EdgeDriver(options);   
+//		options.addArguments("headless");
+//		options.addArguments("--no-sandbox");
+//       		//driver = new ChromeDriver(options);
+//		driver = new EdgeDriver(options);
 }
-	
+
 	@AfterClass
 	public static void tearDownClass() throws IOException {
 		driver.quit();
 	}
-	
+
 	@Test
 	public void testNormal01() {
 		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
-		
+
 		TopPage topPage = new TopPage(driver);
 		assertEquals("名字", topPage.getLastNameLabel());
 		assertEquals("名前", topPage.getFirstNameLabel());
@@ -54,16 +77,16 @@ public class SampleTestCase {
 		assertTrue(topPage.hasFirstNameInput());
 		assertTrue(topPage.hasSubmit());
 	}
-	
+
 	@Test
 	public void testNormal02() {
 		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
-		
+
 		TopPage topPage = new TopPage(driver);
 		topPage.setLastName("Hoge");
 		topPage.setFirstName("Foo");
 		topPage.submit();
-		
+
 		String greeting = "";
 		Calendar calendar = Calendar.getInstance();
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -75,15 +98,15 @@ public class SampleTestCase {
 		ResultPage resultPage = new ResultPage(driver);
 		assertEquals(greeting + ", Hoge Foo!!", resultPage.getText());
 	}
-	
+
 	@Test
 	public void testError01() {
 		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
-		
+
 		TopPage page = new TopPage(driver);
 		page.setFirstName("Hoge");
 		page.submit();
-		
+
 		ResultPage resultPage = new ResultPage(driver);
 		assertEquals("エラー", resultPage.getText());
 	}
@@ -91,11 +114,11 @@ public class SampleTestCase {
 	@Test
 	public void testError02() {
 		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
-		
+
 		TopPage page = new TopPage(driver);
 		page.setLastName("Hoge");
 		page.submit();
-		
+
 		ResultPage resultPage = new ResultPage(driver);
 		assertEquals("エラー", resultPage.getText());
 	}
