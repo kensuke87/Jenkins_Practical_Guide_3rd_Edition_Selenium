@@ -39,7 +39,7 @@
     <selenium-java.version>3.14.0</selenium-java.version>
     <!-- <selenium-java.version>3.4.0</selenium-java.version> -->
 
-    <selenium.baseUrl>http://ec2-18-224-11-12.us-east-2.compute.amazonaws.com:8080</selenium.baseUrl>
+    <selenium.baseUrl>http://18.224.11.12:8080</selenium.baseUrl>
   </properties>
 
   <dependencies>
