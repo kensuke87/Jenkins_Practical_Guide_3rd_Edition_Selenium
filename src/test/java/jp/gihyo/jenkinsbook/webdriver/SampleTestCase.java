@@ -86,7 +86,7 @@ public class SampleTestCase {
 		TopPage topPage = new TopPage(driver);
 		topPage.setLastName("Hoge");
 		topPage.setFirstName("Foo");
-		topPage.searchsubmit();
+		topPage.searchSubmit();
 
 // 		String greeting = "";
 // 		Calendar calendar = Calendar.getInstance();
