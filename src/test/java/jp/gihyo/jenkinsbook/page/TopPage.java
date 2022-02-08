@@ -39,16 +39,26 @@ public class TopPage {
 		return true;
     }
     
-    public boolean hasSubmit() {
+    public boolean hasRegistSubmit() {
 		try {
-			driver.findElement(By.xpath("//input[@type='submit' and @name='send']"));
+			driver.findElement(By.xpath("//input[@type='submit' and @name='regist']"));
 		} catch(NoSuchElementException e) {
 			return false;
 		}
 		
 		return true;
     }
-    
+
+    public boolean hasSearchSubmit() {
+		try {
+			driver.findElement(By.xpath("//input[@type='submit' and @name='search']"));
+		} catch(NoSuchElementException e) {
+			return false;
+		}
+		
+		return true;
+    }		
+	
     public void setFirstName(String firstName) {
         driver.findElement(By.xpath("//input[@type='text' and @name='FirstName']")).clear();
         driver.findElement(By.xpath("//input[@type='text' and @name='FirstName']")).sendKeys(firstName);
@@ -59,8 +69,14 @@ public class TopPage {
         driver.findElement(By.xpath("//input[@type='text' and @name='LastName']")).sendKeys(lastName);
     }
 
-    public void submit() {
+    public void registSubmit() {
 		driver.findElement(By.xpath(
-				"//input[@type='submit' and @name='send']")).submit();
+				"//input[@type='submit' and @name='regist']")).submit();
 	}
+
+    public void searchSubmit() {
+		driver.findElement(By.xpath(
+				"//input[@type='submit' and @name='search']")).submit();
+	}
+
 }
