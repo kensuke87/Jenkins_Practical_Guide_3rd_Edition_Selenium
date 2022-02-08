@@ -26,7 +26,8 @@ public class SampleTestCase {
 
 	private static Properties prop = new Properties();
 	private static WebDriver driver;
-
+	private String URL;
+	
 	@BeforeClass
 	public static void setUpClass() throws IOException {
 		prop.load(new FileInputStream("target/test-classes/selenium.properties"));
@@ -54,6 +55,8 @@ public class SampleTestCase {
 //		options.addArguments("--no-sandbox");
 //       		//driver = new ChromeDriver(options);
 //		driver = new EdgeDriver(options);
+		URL = System.getenv("appURL") + "/sampleproject"
+		
 }
 
 	@AfterClass
@@ -63,7 +66,7 @@ public class SampleTestCase {
 
 	@Test
 	public void testNormal01() {
-		driver.get(System.getenv("appURL") + "/sampleproject");
+		driver.get(URL);
 
 		TopPage topPage = new TopPage(driver);
 		assertEquals("名字", topPage.getLastNameLabel());
@@ -76,7 +79,7 @@ public class SampleTestCase {
 
 	@Test
 	public void testNormal02() {
-		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
+		driver.get(URL);
 
 		TopPage topPage = new TopPage(driver);
 		topPage.setLastName("Hoge");
@@ -97,7 +100,7 @@ public class SampleTestCase {
 
 	@Test
 	public void testError01() {
-		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
+		driver.get(URL);
 
 		TopPage page = new TopPage(driver);
 		page.setFirstName("Hoge");
@@ -109,7 +112,7 @@ public class SampleTestCase {
 
 	@Test
 	public void testError02() {
-		driver.get(prop.getProperty("baseUrl") + "/sampleproject");
+		driver.get(URL);
 
 		TopPage page = new TopPage(driver);
 		page.setLastName("Hoge");
