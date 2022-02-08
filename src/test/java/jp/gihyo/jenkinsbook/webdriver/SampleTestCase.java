@@ -11,7 +11,6 @@ import java.util.Properties;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -31,11 +30,30 @@ public class SampleTestCase {
 	@BeforeClass
 	public static void setUpClass() throws IOException {
 		prop.load(new FileInputStream("target/test-classes/selenium.properties"));
-		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("headless");
-		options.addArguments("--no-sandbox");
-		driver = new ChromeDriver(options);
+ 		//System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+		//final WebDriver driver = new ChromeDriver();
+
+		String myProjectARN = "arn:aws:devicefarm:us-west-2:421850136157:testgrid-project:5e4732b5-6e55-4e9a-9a50-63aa8166eb79";
+	    DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
+	    CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
+	      .expiresInSeconds(300)
+	      .projectArn(myProjectARN)
+	      .build();
+	    CreateTestGridUrlResponse response = client.createTestGridUrl(request);
+	    DesiredCapabilities cap = DesiredCapabilities.edge();
+	    cap.setCapability("ms:edgeChromium", "true");
+	    URL testGridUrl = new URL(response.url());
+	    // You can now pass this URL into RemoteWebDriver.
+	    driver = new RemoteWebDriver(testGridUrl, cap);
+
+
+	 	//ChromeOptions options = new ChromeOptions();
+		EdgeOptions options = new EdgeOptions();
+       		//options.setHeadless(true);
+//		options.addArguments("headless");
+//		options.addArguments("--no-sandbox");
+//       		//driver = new ChromeDriver(options);
+//		driver = new EdgeDriver(options);
 }
 
 	@AfterClass
