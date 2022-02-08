@@ -37,6 +37,7 @@
     <!-- Selenium Properties -->
     <!-- <selenium-java.version>3.141.59</selenium-java.version> -->
     <selenium-java.version>3.14.0</selenium-java.version>
+    <selenium.baseUrl>http://13.231.104.135:8080</selenium.baseUrl>
     <!-- <selenium-java.version>3.4.0</selenium-java.version> -->
 
   </properties>
