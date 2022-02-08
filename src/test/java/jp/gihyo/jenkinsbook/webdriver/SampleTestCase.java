@@ -55,7 +55,7 @@ public class SampleTestCase {
 //		options.addArguments("--no-sandbox");
 //       		//driver = new ChromeDriver(options);
 //		driver = new EdgeDriver(options);
-		URL = System.getenv("appURL") + "/sampleproject"
+		URL = System.getenv("appURL");
 		
 }
 
