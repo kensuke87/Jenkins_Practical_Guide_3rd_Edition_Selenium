@@ -26,7 +26,7 @@ public class SampleTestCase {
 
 	private static Properties prop = new Properties();
 	private static WebDriver driver;
-	private String URL;
+	private static String URL;
 	
 	@BeforeClass
 	public static void setUpClass() throws IOException {
