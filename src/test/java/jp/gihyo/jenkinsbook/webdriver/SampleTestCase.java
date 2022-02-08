@@ -65,7 +65,7 @@ public class SampleTestCase {
 	}
 
 	@Test
-	public void testNormal01() {
+	public void test01() {
 		driver.get(URL);
 
 		TopPage topPage = new TopPage(driver);
@@ -74,51 +74,41 @@ public class SampleTestCase {
 
 		assertTrue(topPage.hasLastNameInput());
 		assertTrue(topPage.hasFirstNameInput());
-		assertTrue(topPage.hasSubmit());
+		assertTrue(topPage.hasRegistSubmit());
+		assertTrue(topPage.hasSearchSubmit());
+
 	}
 
 	@Test
-	public void testNormal02() {
+	public void test02() {
 		driver.get(URL);
 
 		TopPage topPage = new TopPage(driver);
 		topPage.setLastName("Hoge");
 		topPage.setFirstName("Foo");
-		topPage.submit();
+		topPage.searchsubmit();
 
-		String greeting = "";
-		Calendar calendar = Calendar.getInstance();
-		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		if (hour < 12) {
-			greeting = "Good morning";
-		} else {
-			greeting = "Good afternoon";
-        }
-		ResultPage resultPage = new ResultPage(driver);
-		assertEquals(greeting + ", Hoge Foo!!", resultPage.getText());
-	}
-
-	@Test
-	public void testError01() {
-		driver.get(URL);
-
-		TopPage page = new TopPage(driver);
-		page.setFirstName("Hoge");
-		page.submit();
-
+// 		String greeting = "";
+// 		Calendar calendar = Calendar.getInstance();
+// 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+// 		if (hour < 12) {
+// 			greeting = "Good morning";
+// 		} else {
+// 			greeting = "Good afternoon";
+//         }
 		ResultPage resultPage = new ResultPage(driver);
 		assertEquals("エラー", resultPage.getText());
 	}
 
 	@Test
-	public void testError02() {
+	public void test03() {
 		driver.get(URL);
-
-		TopPage page = new TopPage(driver);
-		page.setLastName("Hoge");
-		page.submit();
-
+		TopPage topPage = new TopPage(driver);
+		topPage.setLastName("Hoge");
+		topPage.setFirstName("Foo");
+		topPage.registSubmit();
 		ResultPage resultPage = new ResultPage(driver);
 		assertEquals("エラー", resultPage.getText());
 	}
+
 }
