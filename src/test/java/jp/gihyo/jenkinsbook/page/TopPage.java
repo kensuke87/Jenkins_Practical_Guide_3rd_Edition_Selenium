@@ -41,7 +41,7 @@ public class TopPage {
     
     public boolean hasRegistSubmit() {
 		try {
-			driver.findElement(By.xpath("//input[@type='submit' and @name='regist']"));
+			driver.findElement(By.xpath("//input[@type='button' and @name='regist']"));
 		} catch(NoSuchElementException e) {
 			return false;
 		}
@@ -51,7 +51,7 @@ public class TopPage {
 
     public boolean hasSearchSubmit() {
 		try {
-			driver.findElement(By.xpath("//input[@type='submit' and @name='search']"));
+			driver.findElement(By.xpath("//input[@type='button' and @name='search']"));
 		} catch(NoSuchElementException e) {
 			return false;
 		}
@@ -71,12 +71,12 @@ public class TopPage {
 
     public void registSubmit() {
 		driver.findElement(By.xpath(
-				"//input[@type='submit' and @name='regist']")).submit();
+				"//input[@type='button' and @name='regist']")).submit();
 	}
 
     public void searchSubmit() {
 		driver.findElement(By.xpath(
-				"//input[@type='submit' and @name='search']")).submit();
+				"//input[@type='button' and @name='search']")).submit();
 	}
 
 }
